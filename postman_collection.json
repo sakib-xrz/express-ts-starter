@@ -1,0 +1,261 @@
+{
+  "info": {
+    "_postman_id": "r2-upload-api-collection",
+    "name": "Cloudflare R2 Upload API",
+    "description": "API endpoints for file upload and management using Cloudflare R2 object storage",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Upload Single File",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "folder",
+              "value": "uploads",
+              "type": "text",
+              "description": "Optional: Specify folder name (default: uploads)"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/upload/single",
+          "host": ["{{base_url}}"],
+          "path": ["api", "upload", "single"]
+        },
+        "description": "Upload a single file to Cloudflare R2. Supports images (JPEG, PNG, GIF, WEBP, HEIC), PDFs, and DOC/DOCX files up to 30MB."
+      },
+      "response": []
+    },
+    {
+      "name": "Upload Multiple Files",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "files",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "files",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "files",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "folder",
+              "value": "uploads",
+              "type": "text",
+              "description": "Optional: Specify folder name (default: uploads)"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/upload/multiple",
+          "host": ["{{base_url}}"],
+          "path": ["api", "upload", "multiple"]
+        },
+        "description": "Upload multiple files (max 10) to Cloudflare R2. Each file can be up to 30MB."
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Single File",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"key\": \"uploads/example-file.jpg\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/upload/delete",
+          "host": ["{{base_url}}"],
+          "path": ["api", "upload", "delete"]
+        },
+        "description": "Delete a single file from Cloudflare R2 using file key or URL."
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Single File by URL",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"url\": \"https://pub-xxxxx.r2.dev/uploads/example-file.jpg\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/upload/delete",
+          "host": ["{{base_url}}"],
+          "path": ["api", "upload", "delete"]
+        },
+        "description": "Delete a single file from Cloudflare R2 using the full URL."
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Multiple Files",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"keys\": [\n    \"uploads/file1.jpg\",\n    \"uploads/file2.png\",\n    \"uploads/file3.pdf\"\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/upload/delete-multiple",
+          "host": ["{{base_url}}"],
+          "path": ["api", "upload", "delete-multiple"]
+        },
+        "description": "Delete multiple files from Cloudflare R2 using file keys."
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Multiple Files by URLs",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"urls\": [\n    \"https://pub-xxxxx.r2.dev/uploads/file1.jpg\",\n    \"https://pub-xxxxx.r2.dev/uploads/file2.png\"\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/upload/delete-multiple",
+          "host": ["{{base_url}}"],
+          "path": ["api", "upload", "delete-multiple"]
+        },
+        "description": "Delete multiple files from Cloudflare R2 using full URLs."
+      },
+      "response": []
+    },
+    {
+      "name": "Generate Signed URL",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"key\": \"uploads/private-file.pdf\",\n  \"expiresIn\": 3600\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/upload/signed-url",
+          "host": ["{{base_url}}"],
+          "path": ["api", "upload", "signed-url"]
+        },
+        "description": "Generate a temporary signed URL for private file access. Default expiration is 3600 seconds (1 hour)."
+      },
+      "response": []
+    },
+    {
+      "name": "Generate Signed URL by File URL",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"url\": \"https://pub-xxxxx.r2.dev/uploads/private-file.pdf\",\n  \"expiresIn\": 7200\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/upload/signed-url",
+          "host": ["{{base_url}}"],
+          "path": ["api", "upload", "signed-url"]
+        },
+        "description": "Generate a temporary signed URL using the full file URL. Expires in 7200 seconds (2 hours)."
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    }
+  ]
+}

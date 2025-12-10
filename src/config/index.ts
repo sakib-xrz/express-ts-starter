@@ -23,6 +23,13 @@ interface Config {
     api_key?: string;
     api_secret?: string;
   };
+  cloudflareR2: {
+    account_id?: string;
+    access_key_id?: string;
+    secret_access_key?: string;
+    bucket_name?: string;
+    public_url?: string;
+  };
 }
 
 const config: Config = {
@@ -45,6 +52,13 @@ const config: Config = {
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
+  },
+  cloudflareR2: {
+    account_id: process.env.CLOUDFLARE_R2_ACCOUNT_ID,
+    access_key_id: process.env.CLOUDFLARE_R2_ACCESS_KEY_ID,
+    secret_access_key: process.env.CLOUDFLARE_R2_SECRET_ACCESS_KEY,
+    bucket_name: process.env.CLOUDFLARE_R2_BUCKET_NAME,
+    public_url: process.env.CLOUDFLARE_R2_PUBLIC_URL,
   },
 };
 
