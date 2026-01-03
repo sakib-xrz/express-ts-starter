@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../prisma/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+model File {
+  id         String   @id @default(uuid())
+  url        String   @unique
+  key        String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([key])
+  @@map("files")
+}
+
+model User {
+  id                     String    @id @default(uuid())
+  email                  String    @unique
+  password               String
+  name                   String
+  phone                  String?
+  image_url              String?
+  role                   Role      @default(CUSTOMER)
+  email_verified         Boolean   @default(false)
+  is_active              Boolean   @default(true)
+  is_deleted             Boolean   @default(false)
+  refresh_token          String?
+  password_reset_token   String?
+  password_reset_expires DateTime?
+  password_reset_at      DateTime?
+  created_at             DateTime  @default(now())
+  updated_at             DateTime  @updatedAt
+
+  @@index([email])
+  @@index([refresh_token])
+  @@index([password_reset_token])
+  @@index([password_reset_at])
+  @@map("users")
+}
